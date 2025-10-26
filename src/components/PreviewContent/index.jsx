@@ -1,6 +1,6 @@
 import React from "react";
 
-const PreviewContent = () => {
+const PreviewContent = ({ blogContent }) => {
   return (
     <div className=" w-full text-card-foreground gap-6 justify-between rounded-xl  bg-card border shadow-sm p-6">
       <div className="flex flex-col gap-2 md:flex-row justify-between items-start mb-8 border-b pb-6">
@@ -56,9 +56,15 @@ const PreviewContent = () => {
         </div>
       </div>
       <div className="grid gap-8 min-h-28">
+       {blogContent ? (
+        <div className="prose prose-sm prose-invert max-w-full">
+          {blogContent}
+        </div>
+       ) : (
         <p className="text-center text-muted-foreground">
           Chưa có nội dung để hiển thị.
         </p>
+       )}
       </div>
     </div>
   );
