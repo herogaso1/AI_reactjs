@@ -3,7 +3,7 @@ import ReactMarkdown from "react-markdown";
 
 
 
-const PreviewContent = ({ blogContent, handleCopy }) => {
+const PreviewContent = ({ blogContent, handleCopy ,handleDownload}) => {
   return (
     <div className=" w-full text-card-foreground gap-6 justify-between rounded-xl  bg-card border shadow-sm p-6">
       <div className="flex flex-col gap-2 md:flex-row justify-between items-start mb-8 border-b pb-6">
@@ -35,6 +35,7 @@ const PreviewContent = ({ blogContent, handleCopy }) => {
             Sao chép
           </button>
           <button
+            onClick={handleDownload}
             data-slot="button"
             className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([className*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-primary text-primary-foreground hover:bg-primary/90 h-8 rounded-md gap-1.5 px-3 has-[&gt;svg]:px-2.5"
             type="button"

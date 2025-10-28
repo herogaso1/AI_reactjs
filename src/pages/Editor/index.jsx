@@ -7,6 +7,27 @@ const Editor = () => {
   const [inputValue, setInputValue] = React.useState("");
   const [blogContent, setBlogContent] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
+  const filename = "blog-content.txt";
+  const handleDownload = () => {
+  // 1️⃣ Tạo blob từ nội dung
+  const blob = new Blob([blogContent], { type: "text/plain" });
+
+  // 2️⃣ Tạo URL tạm thời cho blob
+  const url = URL.createObjectURL(blob);
+
+  // 3️⃣ Tạo thẻ <a> để mô phỏng hành động tải xuống
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+
+  // 4️⃣ Thêm vào DOM và click tự động
+  document.body.appendChild(a);
+  a.click();
+
+  // 5️⃣ Dọn dẹp
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+};
   const handleCopy = () => {
     if (!blogContent.trim()) {
       return;
@@ -56,6 +77,7 @@ Yêu cầu:
       />
       <PreviewContent blogContent={blogContent} 
       handleCopy={handleCopy}
+      handleDownload={handleDownload}
         />
     </div>
   );

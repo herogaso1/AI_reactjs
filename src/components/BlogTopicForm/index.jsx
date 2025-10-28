@@ -1,6 +1,6 @@
 import React from 'react'
 
-const BlogTopicForm = ({ inputValue, setInputValue, handleCreateBlog, isLoading }) => {
+const BlogTopicForm = ({ inputValue, setInputValue, handleCreateBlog, isLoading  }) => {
   return (
     <>
       <h1 className="text-3xl font-bold">Blog Editor</h1>
