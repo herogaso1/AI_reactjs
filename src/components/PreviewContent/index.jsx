@@ -1,6 +1,9 @@
 import React from "react";
+import ReactMarkdown from "react-markdown";
 
-const PreviewContent = ({ blogContent }) => {
+
+
+const PreviewContent = ({ blogContent, handleCopy }) => {
   return (
     <div className=" w-full text-card-foreground gap-6 justify-between rounded-xl  bg-card border shadow-sm p-6">
       <div className="flex flex-col gap-2 md:flex-row justify-between items-start mb-8 border-b pb-6">
@@ -9,6 +12,7 @@ const PreviewContent = ({ blogContent }) => {
         </div>
         <div className="flex gap-2 justify-start md:justify-end">
           <button
+            onClick={handleCopy}  
             data-slot="button"
             className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([className*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 h-8 rounded-md gap-1.5 px-3 has-[&gt;svg]:px-2.5"
             type="button"
@@ -58,7 +62,24 @@ const PreviewContent = ({ blogContent }) => {
       <div className="grid gap-8 min-h-28">
        {blogContent ? (
         <div className="prose prose-sm prose-invert max-w-full">
-          {blogContent}
+          <ReactMarkdown
+            components={{
+              h1: ({node, ...props}) => <h1 className="text-3xl font-bold mt-8 mb-4" {...props} />,
+              h2: ({node, ...props}) => <h2 className="text-2xl font-bold mt-6 mb-3" {...props} />,
+              h3: ({node, ...props}) => <h3 className="text-xl font-bold mt-4 mb-2" {...props} />,
+              p: ({node, ...props}) => <p className="text-base leading-7 mb-4" {...props} />,
+              ul: ({node, ...props}) => <ul className="list-disc pl-6 mb-4 space-y-2" {...props} />,
+              ol: ({node, ...props}) => <ol className="list-decimal pl-6 mb-4 space-y-2" {...props} />,
+              li: ({node, ...props}) => <li className="text-base" {...props} />,
+              strong: ({node, ...props}) => <strong className="font-bold" {...props} />,
+              em: ({node, ...props}) => <em className="italic" {...props} />,
+              blockquote: ({node, ...props}) => (
+                <blockquote className="border-l-4 border-primary pl-4 italic my-4" {...props} />
+              ),
+            }}
+          >
+            {blogContent}
+          </ReactMarkdown>
         </div>
        ) : (
         <p className="text-center text-muted-foreground">
