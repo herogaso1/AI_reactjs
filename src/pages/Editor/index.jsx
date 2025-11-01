@@ -2,12 +2,18 @@ import React from "react";
 import BlogTopicForm from "@/components/BlogTopicForm";
 import PreviewContent from "@/components/PreviewContent";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { toast } from "react-hot-toast";
 
 const Editor = () => {
   const [inputValue, setInputValue] = React.useState("");
   const [blogContent, setBlogContent] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
-  const filename = "blog-content.txt";
+  // const filename = inputValue ? `${inputValue}.txt` : "blog-content.txt";
+
+  //convert inputValue to a valid filename => example: "blog-content.txt"
+  const filename = inputValue
+    ? `${inputValue.replace(/\s+/g, "-").toLowerCase()}.txt`
+    : "blog-content.txt";
   const handleDownload = () => {
   // 1️⃣ Tạo blob từ nội dung
   const blob = new Blob([blogContent], { type: "text/plain" });
@@ -30,9 +36,11 @@ const Editor = () => {
 };
   const handleCopy = () => {
     if (!blogContent.trim()) {
+      toast.error("Không có nội dung để sao chép!");
       return;
     }
       navigator.clipboard.writeText(blogContent);
+      toast.success("Đã sao chép vào clipboard!");
   };
 
   const handleCreateBlog = async () => {
@@ -58,6 +66,16 @@ Yêu cầu:
       console.log("result:", result);
       const response = result.response.candidates[0].content.parts[0].text;
       console.log("response:", response);
+      //bước 1 Lưu blogContent vào localStorage dưới dạng một mục lịch sử
+      const history = JSON.parse(localStorage.getItem("history")) || [];
+      const newHistoryItem = {
+        id: Date.now(),
+        topic: inputValue,
+        content: response,
+        timestamp: new Date().toLocaleString(),
+      };
+      history.push(newHistoryItem);
+      localStorage.setItem("history", JSON.stringify(history));
 
       setBlogContent(response);
     } catch (error) {
