@@ -14,10 +14,12 @@ export default function DialogView({
   isOpenview,
   onOpenChangeview,
   blogContent,
+  handleCopy,
+  handleDownload,
 }) {
   // xử lý sự kiện đóng dialog view
   const handleCloseView = () => {
-    setIsOpenview(false);
+    onOpenChangeview(false);
   };
   // //xử lý sự kiện coppy từ handleCopy
   // const handleCopy = () => {
@@ -47,7 +49,11 @@ export default function DialogView({
           </div>
           {blogContent}
         </DialogDescription> */}
-        <PreviewContent blogContent={blogContent} />
+        <PreviewContent 
+          blogContent={blogContent} 
+          handleCopy={handleCopy}
+          handleDownload={handleDownload}
+        />
       </DialogContent>
     </Dialog>
   );
