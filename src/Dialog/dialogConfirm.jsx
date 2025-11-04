@@ -23,10 +23,12 @@ export default function DialogDemo({
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>
-            <Lottie animationData={Trash} loop={true} />
-            Confirm Delete
-          </DialogTitle>
+          <Lottie
+            className="w-full max-w-[200px] mx-auto"
+            animationData={Trash}
+            loop={true}
+          />
+          <DialogTitle>Confirm Delete</DialogTitle>
           <DialogDescription>
             Are you sure you want to delete this item? This action cannot be
             undone.
